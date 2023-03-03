@@ -14,9 +14,9 @@ module "sp" {
 
   federated_identity_credentials = {
     "example" = {
-      display_name = "my-repo-deploy"
-      description  = "Deployments for my-repo"
-      subject      = "repo:my-organization/my-repo:environment:prod"
+      display_name = "github-actions"
+      issuer       = "https://token.actions.githubusercontent.com"
+      subject      = "repo:equinor/terraform-azuread-sp:environment:dev"
     }
   }
 }

@@ -15,8 +15,7 @@ variable "federated_identity_credentials" {
   type = map(object({
     display_name = string
     description  = optional(string, "")
-    audiences    = optiona(list(string), ["api://AzureADTokenExchange"])
-    issuer       = optional(string, "https://token.actions.githubusercontent.com")
+    issuer       = string
     subject      = string
   }))
 

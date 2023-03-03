@@ -16,7 +16,7 @@ resource "azuread_application_federated_identity_credential" "this" {
   application_object_id = azuread_application.this.object_id
   display_name          = each.value["display_name"]
   description           = each.value["description"]
-  audiences             = each.value["audiences"]
+  audiences             = ["api://AzureADTokenExchange"]
   issuer                = each.value["issuer"]
   subject               = each.value["subject"]
 }
