@@ -1,20 +1,22 @@
-provider "azurerm" {
+provider "azuread" {
   features {}
 }
 
-resource "random_id" "this" {
+resource "random_id" "example" {
   byte_length = 8
 }
 
-resource "azurerm_resource_group" "this" {
-  name     = "rg-${random_id.this.hex}"
-  location = var.location
-}
-
-module "foobar" {
-  # source = "github.com/equinor/terraform-azurerm-foobar?ref=v0.0.0"
+module "sp" {
+  # source = "github.com/equinor/terraform-azuread-sp"
   source = "../.."
 
-  resource_group_name = azurerm_resource_group.this.name
-  location            = azurerm_resource_group.this.location
+  display_name = "sp-${random_id.example.hex}"
+
+  federated_identity_credentials = {
+    "example" = {
+      display_name = "my-repo-deploy"
+      description  = "Deployments for my-repo"
+      subject      = "repo:my-organization/my-repo:environment:prod"
+    }
+  }
 }
