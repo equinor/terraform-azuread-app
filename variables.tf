@@ -3,6 +3,11 @@ variable "display_name" {
   type        = string
 }
 
+variable "service_management_reference" {
+  description = "Reference application context information from a service management datbase, e.g. ServiceNow."
+  type        = string
+}
+
 variable "owners" {
   description = "A list of owners to set for this service principal. Current client will be added by default."
   type        = list(string)

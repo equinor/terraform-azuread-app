@@ -6,8 +6,9 @@ locals {
 }
 
 resource "azuread_application" "this" {
-  display_name = var.display_name
-  owners       = local.owners
+  display_name                 = var.display_name
+  service_management_reference = var.service_management_reference
+  owners                       = local.owners
 }
 
 resource "azuread_application_federated_identity_credential" "this" {

@@ -10,7 +10,8 @@ module "sp" {
   # source = "github.com/equinor/terraform-azuread-sp"
   source = "../.."
 
-  display_name = "sp-${random_id.example.hex}"
+  display_name                 = "sp-${random_id.example.hex}"
+  service_management_reference = "123456"
 
   federated_identity_credentials = {
     "example" = {
