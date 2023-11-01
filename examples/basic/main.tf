@@ -1,23 +1,20 @@
-provider "azuread" {
-  features {}
-}
+provider "azuread" {}
+
+data "azuread_client_config" "current" {}
 
 resource "random_id" "example" {
   byte_length = 8
 }
 
-module "sp" {
-  # source = "github.com/equinor/terraform-azuread-sp"
+module "app" {
+  # source = "github.com/equinor/terraform-azuread-app"
   source = "../.."
 
-  display_name                 = "sp-${random_id.example.hex}"
-  service_management_reference = "123456"
+  display_name                 = "app-${random_id.example.hex}"
+  service_management_reference = "12345"
 
-  federated_identity_credentials = {
-    "example" = {
-      display_name = "github-actions"
-      issuer       = "https://token.actions.githubusercontent.com"
-      subject      = "repo:equinor/terraform-azuread-sp:environment:dev"
-    }
-  }
+  owners = [
+    data.azuread_client_config.current.object_id,
+    "00000000-0000-0000-0000-000000000000" # example object ID
+  ]
 }

@@ -1,6 +1,6 @@
-# Azure AD service principal Terraform module
+# Microsoft Entra ID application Terraform module
 
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
 [![Equinor Terraform Baseline](https://img.shields.io/badge/Equinor%20Terraform%20Baseline-1.0.0-blueviolet)](https://github.com/equinor/terraform-baseline)
 
-Terraform module which creates an Azure AD service principal.
+Terraform module which creates a Microsoft Entra ID application and a corresponding service principal.

@@ -1,5 +1,5 @@
 variable "display_name" {
-  description = "The display name of this service principal."
+  description = "The display name of this application."
   type        = string
 }
 
@@ -9,20 +9,11 @@ variable "service_management_reference" {
 }
 
 variable "owners" {
-  description = "A list of owners to set for this service principal. Current client will be added by default."
+  description = "A list of object IDs of owners to set for this application. At least two owners must be set."
   type        = list(string)
-  default     = []
-}
 
-variable "federated_identity_credentials" {
-  description = "A map of federated identity credentials to create for this service principal."
-
-  type = map(object({
-    display_name = string
-    description  = optional(string, "")
-    issuer       = string
-    subject      = string
-  }))
-
-  default = {}
+  validation {
+    condition     = length(var.owners) >= 2
+    error_message = "At least two owners must be set."
+  }
 }
