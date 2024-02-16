@@ -1,20 +1,20 @@
-provider "azurerm" {
-  features {}
-}
+provider "azuread" {}
 
-resource "random_id" "this" {
+data "azuread_client_config" "current" {}
+
+resource "random_id" "example" {
   byte_length = 8
 }
 
-resource "azurerm_resource_group" "this" {
-  name     = "rg-${random_id.this.hex}"
-  location = var.location
-}
-
-module "foobar" {
-  # source = "github.com/equinor/terraform-azurerm-foobar?ref=v0.0.0"
+module "app" {
+  # source = "github.com/equinor/terraform-azuread-app"
   source = "../.."
 
-  resource_group_name = azurerm_resource_group.this.name
-  location            = azurerm_resource_group.this.location
+  display_name                 = "app-${random_id.example.hex}"
+  service_management_reference = "12345"
+
+  owners = [
+    data.azuread_client_config.current.object_id,
+    "00000000-0000-0000-0000-000000000000" # example object ID
+  ]
 }
