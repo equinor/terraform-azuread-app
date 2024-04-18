@@ -46,25 +46,20 @@ resource "azuread_application" "this" {
   }
 }
 
-resource "random_uuid" "scope_ids" {
-  count = length(var.oauth2_permission_scopes)
-}
-
 resource "azuread_application_permission_scope" "this" {
-  for_each = { for i, scope in var.oauth2_permission_scopes : i => scope }
+  for_each = var.oauth2_permission_scopes
 
   admin_consent_description  = each.value.admin_consent_description
   admin_consent_display_name = each.value.admin_consent_display_name
 
   application_id = azuread_application.this.id
-  id             = each.value.id
-  scope_id       = random_uuid.scope_ids[each.key].result
+  scope_id       = each.value.scope_id
   type           = each.value.type
 
   user_consent_description  = each.value.user_consent_description
   user_consent_display_name = each.value.user_consent_display_name
 
-  value          = each.value.value
+  value = each.value.value
 }
 
 resource "azuread_application_identifier_uri" "default" {

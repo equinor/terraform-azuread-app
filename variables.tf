@@ -114,7 +114,7 @@ variable "oauth2_permission_scopes" {
     admin_consent_description  = string
     admin_consent_display_name = string
     enabled                    = optional(bool)
-    id                         = string
+    scope_id                   = string
     type                       = optional(string)
     user_consent_description   = optional(string)
     user_consent_display_name  = optional(string)
