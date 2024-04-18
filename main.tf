@@ -51,14 +51,14 @@ resource "random_uuid" "scope_ids" {
 }
 
 resource "azuread_application_permission_scope" "this" {
-  for_each = var.identifier_uris
+  for_each = { for i, scope in var.oauth2_permission_scopes : i => scope }
 
   admin_consent_description  = each.value.admin_consent_description
   admin_consent_display_name = each.value.admin_consent_display_name
 
   application_id = azuread_application.this.id
   id             = each.value.id
-  scope_id       = random_uuid.scope_ids.result
+  scope_id       = random_uuid.scope_ids[each.key].result
   type           = each.value.type
 
   user_consent_description  = each.value.user_consent_description
@@ -68,8 +68,6 @@ resource "azuread_application_permission_scope" "this" {
 }
 
 resource "azuread_application_identifier_uri" "default" {
-  depends_on = [azuread_application.this]
-
   application_id = azuread_application.this.id
   identifier_uri = "api://${azuread_application.this.client_id}"
 }
