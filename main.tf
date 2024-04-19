@@ -42,6 +42,7 @@ resource "azuread_application" "this" {
     }
     ignore_changes = [
       identifier_uris,
+      api
     ]
   }
 }
