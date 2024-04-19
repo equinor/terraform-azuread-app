@@ -47,11 +47,11 @@ resource "azuread_application" "this" {
 }
 
 resource "random_uuid" "scope_id" {
-  for_each = toset(range(length(var.oauth2_permission_scopes)))
+  for_each = { for scope in var.oauth2_permission_scopes : scope.value => scope}
 }
 
 resource "azuread_application_permission_scope" "this" {
-  for_each = { for i, scope in var.oauth2_permission_scopes : i => scope }
+  for_each = { for scope in var.oauth2_permission_scopes : scope.value => scope}
 
   admin_consent_description  = each.value.admin_consent_description
   admin_consent_display_name = each.value.admin_consent_display_name
