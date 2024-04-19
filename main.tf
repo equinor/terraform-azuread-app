@@ -46,14 +46,18 @@ resource "azuread_application" "this" {
   }
 }
 
+resource "random_uuid" "scope_id" {
+  for_each = toset(range(length(var.oauth2_permission_scopes)))
+}
+
 resource "azuread_application_permission_scope" "this" {
-  for_each = var.oauth2_permission_scopes
+  for_each = { for i, scope in var.oauth2_permission_scopes : i => scope }
 
   admin_consent_description  = each.value.admin_consent_description
   admin_consent_display_name = each.value.admin_consent_display_name
 
   application_id = azuread_application.this.id
-  scope_id       = each.value.scope_id
+  scope_id       = random_uuid.scope_id[each.key].result
   type           = each.value.type
 
   user_consent_description  = each.value.user_consent_description
