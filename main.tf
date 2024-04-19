@@ -35,6 +35,25 @@ resource "azuread_application" "this" {
     }
   }
 
+  api {
+    dynamic "oauth2_permission_scope" {
+      for_each = { for scope in var.oauth2_permission_scopes : scope.value => scope }
+      content {
+        admin_consent_description  = oauth2_permission_scope.value.admin_consent_description
+        admin_consent_display_name = oauth2_permission_scope.value.admin_consent_display_name
+
+        enabled = oauth2_permission_scope.value.enabled
+        id      = random_uuid.scope_id[oauth2_permission_scope.key].result
+        type    = oauth2_permission_scope.value.type
+
+        user_consent_description  = oauth2_permission_scope.value.user_consent_description
+        user_consent_display_name = oauth2_permission_scope.value.user_consent_display_name
+
+        value = oauth2_permission_scope.value.value
+      }
+    }
+  }
+
   lifecycle {
     precondition {
       condition     = contains(var.owners, data.azuread_client_config.current.object_id)
@@ -42,29 +61,12 @@ resource "azuread_application" "this" {
     }
     ignore_changes = [
       identifier_uris,
-      api
     ]
   }
 }
 
 resource "random_uuid" "scope_id" {
-  for_each = { for scope in var.oauth2_permission_scopes : scope.value => scope}
-}
-
-resource "azuread_application_permission_scope" "this" {
-  for_each = { for scope in var.oauth2_permission_scopes : scope.value => scope}
-
-  admin_consent_description  = each.value.admin_consent_description
-  admin_consent_display_name = each.value.admin_consent_display_name
-
-  application_id = azuread_application.this.id
-  scope_id       = random_uuid.scope_id[each.key].result
-  type           = each.value.type
-
-  user_consent_description  = each.value.user_consent_description
-  user_consent_display_name = each.value.user_consent_display_name
-
-  value = each.value.value
+  for_each = { for scope in var.oauth2_permission_scopes : scope.value => scope }
 }
 
 resource "azuread_application_identifier_uri" "default" {
