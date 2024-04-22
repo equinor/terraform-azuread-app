@@ -17,7 +17,7 @@ variable "fallback_public_client_enabled" {
 
 variable "identifier_uris" {
   description = "A set of user-defined URI(s) that uniquely identify an application within its Azure AD tenant, or within a verified custom domain if the application is multi-tenant."
-  type        = set(string)
+  type        = list(string)
   default     = []
 }
 
