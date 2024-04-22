@@ -9,7 +9,7 @@ resource "azuread_application" "this" {
   sign_in_audience               = "AzureADMyOrg"
 
   public_client {
-    redirect_uris = var.public_redirect_uris
+    redirect_uris = var.public_client_redirect_uris
   }
 
   web {
