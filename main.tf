@@ -14,7 +14,7 @@ resource "azuread_application" "this" {
 
   web {
     homepage_url  = var.homepage_url
-    logout_url    = var.login_url
+    logout_url    = var.logout_url
     redirect_uris = var.web_redirect_uris
 
     implicit_grant {
