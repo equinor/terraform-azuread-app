@@ -18,8 +18,8 @@ resource "azuread_application" "this" {
     redirect_uris = var.web_redirect_uris
 
     implicit_grant {
-      access_token_issuance_enabled = var.access_token_issuance
-      id_token_issuance_enabled     = var.id_token_issuance
+      access_token_issuance_enabled = var.access_token_issuance_enabled
+      id_token_issuance_enabled     = var.id_token_issuance_enabled
     }
   }
 

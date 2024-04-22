@@ -78,13 +78,13 @@ variable "public_redirect_uris" {
   default = []
 }
 
-variable "access_token_issuance" {
+variable "access_token_issuance_enabled" {
   description = "Should the application be allowed to request an access token?"
   type        = bool
   default     = false
 }
 
-variable "id_token_issuance" {
+variable "id_token_issuance_enabled" {
   description = "Should the application be allowed to request an ID token?"
   type        = bool
   default     = false
