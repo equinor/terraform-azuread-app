@@ -94,14 +94,14 @@ variable "required_resource_access" {
   description = "List of required resource access blocks"
   type = list(object({
     resource_app_id = string
-    resource_access = object({
+    resource_access = list(object({
       id   = string
       type = string
-    })
+    }))
   }))
 
   validation {
-    condition     = alltrue([for resource in var.required_resource_access : resource.resource_access.type == "Role" || resource.resource_access.type == "Scope"])
+    condition     = alltrue([for resource in var.required_resource_access : alltrue([for access in resource.resource_access : access.type == "Role" || access.type == "Scope"])])
     error_message = "Type must be either \"Role\" or \"Scope\""
   }
 
