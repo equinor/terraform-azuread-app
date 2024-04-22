@@ -4,19 +4,19 @@ variable "display_name" {
 }
 
 variable "device_only_auth_enabled" {
-  description = "(Optional) Specifies whether this application supports device authentication without a user."
+  description = "Specifies whether this application supports device authentication without a user."
   type        = bool
   default     = false
 }
 
 variable "fallback_public_client_enabled" {
-  description = " (Optional) Specifies whether the application is a public client. Appropriate for apps using token grant flows that don't use a redirect URI."
+  description = "Specifies whether the application is a public client. Appropriate for apps using token grant flows that don't use a redirect URI."
   type        = bool
   default     = false
 }
 
 variable "identifier_uris" {
-  description = "(Optional) A set of user-defined URI(s) that uniquely identify an application within its Azure AD tenant, or within a verified custom domain if the application is multi-tenant."
+  description = "A set of user-defined URI(s) that uniquely identify an application within its Azure AD tenant, or within a verified custom domain if the application is multi-tenant."
   type        = set(string)
   default     = []
 }
@@ -37,25 +37,25 @@ variable "owners" {
 }
 
 variable "login_url" {
-  description = "(Optional) The URL where the service provider redirects the user to Azure AD to authenticate. Azure AD uses the URL to launch the application from Microsoft 365 or the Azure AD My Apps. When blank, Azure AD performs IdP-initiated sign-on for applications configured with SAML-based single sign-on."
+  description = "The URL where the service provider redirects the user to Azure AD to authenticate. Azure AD uses the URL to launch the application from Microsoft 365 or the Azure AD My Apps. When blank, Azure AD performs IdP-initiated sign-on for applications configured with SAML-based single sign-on."
   type        = string
   default     = null
 }
 
 variable "homepage_url" {
-  description = "(Optional) Application home page."
+  description = "Application home page."
   type        = string
   default     = null
 }
 
 variable "logout_url" {
-  description = "(Optional) The URL that will be used to sign out."
+  description = "The URL that will be used to sign out."
   type        = string
   default     = null
 }
 
 variable "web_redirect_uris" {
-  description = "(Optional) A set of URLs where OAuth 2.0 autorization codes and access tokens are sent."
+  description = "A set of URLs where OAuth 2.0 autorization codes and access tokens are sent."
   type        = set(string)
 
   validation {
@@ -67,7 +67,7 @@ variable "web_redirect_uris" {
 }
 
 variable "public_redirect_uris" {
-  description = "(Optional) A set of URLs where OAuth 2.0 autorization codes and access tokens are sent."
+  description = "A set of URLs where OAuth 2.0 autorization codes and access tokens are sent."
   type        = set(string)
 
   validation {
@@ -79,19 +79,19 @@ variable "public_redirect_uris" {
 }
 
 variable "access_token_issuance" {
-  description = "(Optional) Should the application be allowed to request an access token?"
+  description = "Should the application be allowed to request an access token?"
   type        = bool
   default     = false
 }
 
 variable "id_token_issuance" {
-  description = "(Optional) Should the application be allowed to request an ID token?"
+  description = "Should the application be allowed to request an ID token?"
   type        = bool
   default     = false
 }
 
 variable "required_resource_access" {
-  description = "(Optional) List of required resource access blocks"
+  description = "List of required resource access blocks"
   type = list(object({
     resource_app_id = string
     resource_access = object({
@@ -109,7 +109,7 @@ variable "required_resource_access" {
 }
 
 variable "oauth2_permission_scopes" {
-  description = "(Optional) List of required oauth permission scope"
+  description = "List of required oauth permission scope"
   type = list(object({
     admin_consent_description  = string
     admin_consent_display_name = string
