@@ -42,13 +42,13 @@ variable "login_url" {
   default     = null
 }
 
-variable "homepage_url" {
+variable "web_homepage_url" {
   description = "Application home page."
   type        = string
   default     = null
 }
 
-variable "logout_url" {
+variable "web_logout_url" {
   description = "The URL that will be used to sign out."
   type        = string
   default     = null

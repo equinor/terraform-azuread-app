@@ -13,8 +13,8 @@ resource "azuread_application" "this" {
   }
 
   web {
-    homepage_url  = var.homepage_url
-    logout_url    = var.logout_url
+    homepage_url  = var.web_homepage_url
+    logout_url    = var.web_logout_url
     redirect_uris = var.web_redirect_uris
 
     implicit_grant {
