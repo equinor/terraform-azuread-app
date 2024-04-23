@@ -41,13 +41,13 @@ resource "azuread_application" "this" {
 
   api {
     dynamic "oauth2_permission_scope" {
-      for_each = { for scope in var.oauth2_permission_scopes : scope.value => scope }
+      for_each = var.oauth2_permission_scopes
       content {
         admin_consent_description  = oauth2_permission_scope.value.admin_consent_description
         admin_consent_display_name = oauth2_permission_scope.value.admin_consent_display_name
 
         enabled = oauth2_permission_scope.value.enabled
-        id      = random_uuid.scope_id[oauth2_permission_scope.key].result
+        id      = random_uuid.oauth2_permission_scope[oauth2_permission_scope.key].result
         type    = oauth2_permission_scope.value.type
 
         user_consent_description  = oauth2_permission_scope.value.user_consent_description
@@ -69,8 +69,8 @@ resource "azuread_application" "this" {
   }
 }
 
-resource "random_uuid" "scope_id" {
-  for_each = { for scope in var.oauth2_permission_scopes : scope.value => scope }
+resource "random_uuid" "oauth2_permission_scope" {
+  count = length(var.oauth2_permission_scopes)
 }
 
 resource "azuread_application_identifier_uri" "default" {
