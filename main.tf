@@ -79,10 +79,10 @@ resource "azuread_application_identifier_uri" "default" {
 }
 
 resource "azuread_application_identifier_uri" "extra" {
-  for_each = { for url in var.identifier_uris : url => url }
+  count = length(var.identifier_uris)
 
   application_id = azuread_application.this.id
-  identifier_uri = each.value
+  identifier_uri = var.identifier_uris[count.index]
 }
 
 resource "azuread_service_principal" "this" {
