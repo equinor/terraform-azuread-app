@@ -1,5 +1,16 @@
 data "azuread_client_config" "current" {}
 
+# Fetch user object IDs based on the principal names
+data "azuread_user" "owners" {
+  for_each            = toset(var.owners)
+  user_principal_name = each.value
+}
+
+# Local variable to hold the resolved owner ObjectIds
+locals {
+  owner_object_ids = values(data.azuread_user.owners)[*].object_id
+}
+
 # Azure Active Directory provider version 2.44.0 adds a new simplified resource "azuread_application_registration" for
 # creating applications, however that resource requires configuration of owners using a separate resource
 # "azuread_application_owner". This means that the initial application will be created without any owners, which means
@@ -8,7 +19,7 @@ data "azuread_client_config" "current" {}
 resource "azuread_application" "this" {
   display_name                   = var.display_name
   service_management_reference   = var.service_management_reference
-  owners                         = var.owners
+  owners                         = local.owner_object_ids
   device_only_auth_enabled       = var.device_only_auth_enabled
   fallback_public_client_enabled = var.fallback_public_client_enabled
   identifier_uris                = var.identifier_uris
@@ -16,7 +27,7 @@ resource "azuread_application" "this" {
 
   lifecycle {
     precondition {
-      condition     = contains(var.owners, data.azuread_client_config.current.object_id)
+      condition     = contains(local.owner_object_ids, data.azuread_client_config.current.object_id)
       error_message = "Current client (object ID: \"${data.azuread_client_config.current.object_id}\") must be set as owner."
     }
   }
@@ -24,6 +35,7 @@ resource "azuread_application" "this" {
 
 resource "azuread_service_principal" "this" {
   client_id = azuread_application.this.client_id
-  owners    = var.owners
+  owners    = local.owner_object_ids
   login_url = var.login_url
 }
+
