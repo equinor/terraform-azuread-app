@@ -86,7 +86,7 @@ resource "random_uuid" "oauth2_permission_scope" {
   count = length(var.oauth2_permission_scopes)
 }
 
-resource "azuread_application_identifier_uri" "extra" {
+resource "azuread_application_identifier_uri" "this" {
   for_each = merge(local.identifier_uris, var.identifier_uris)
 
   application_id = azuread_application.this.id
