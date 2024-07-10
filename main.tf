@@ -1,5 +1,10 @@
 data "azuread_client_config" "current" {}
 
+# Azure Active Directory provider version 2.44.0 adds a new simplified resource "azuread_application_registration" for
+# creating applications, however that resource requires configuration of owners using a separate resource
+# "azuread_application_owner". This means that the initial application will be created without any owners, which means
+# that you'll need Entra ID role "Application Administrator" or "Global Administrator" to make further changes to the
+# application (including configuring yourself as owner).
 resource "azuread_application" "this" {
   display_name                   = var.display_name
   service_management_reference   = var.service_management_reference
