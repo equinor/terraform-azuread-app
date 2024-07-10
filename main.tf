@@ -72,13 +72,16 @@ resource "azuread_application" "this" {
   }
 
   lifecycle {
+    ignore_changes = [
+      # Configure identifier URIs using the standalone "azuread_application_identifier_uri" resource instead.
+      # This is required in order for the identifier URIs to reference the properties of the application, typically its application (client) ID.
+      identifier_uris
+    ]
+
     precondition {
       condition     = contains(var.owners, data.azuread_client_config.current.object_id)
       error_message = "Current client (object ID: \"${data.azuread_client_config.current.object_id}\") must be set as owner."
     }
-    ignore_changes = [
-      identifier_uris,
-    ]
   }
 }
 
