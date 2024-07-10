@@ -3,21 +3,6 @@ variable "display_name" {
   type        = string
 }
 
-variable "service_management_reference" {
-  description = "Reference application context information from a service management datbase, e.g. ServiceNow."
-  type        = string
-}
-
-variable "owners" {
-  description = "A list of object IDs of owners to set for this application. At least two owners must be set."
-  type        = list(string)
-
-  validation {
-    condition     = length(var.owners) >= 2
-    error_message = "At least two owners must be set."
-  }
-}
-
 variable "device_only_auth_enabled" {
   description = "Specifies whether this application supports device authentication without a user."
   type        = bool
@@ -34,6 +19,21 @@ variable "identifier_uris" {
   description = "A map of user-defined URIs that uniquely identify this application within its Entra ID tenant, or within a verified custom domain if the application is multi-tenant."
   type        = map(string)
   default     = {}
+}
+
+variable "service_management_reference" {
+  description = "Reference application context information from a service management datbase, e.g. ServiceNow."
+  type        = string
+}
+
+variable "owners" {
+  description = "A list of object IDs of owners to set for this application. At least two owners must be set."
+  type        = list(string)
+
+  validation {
+    condition     = length(var.owners) >= 2
+    error_message = "At least two owners must be set."
+  }
 }
 
 variable "login_url" {
