@@ -16,9 +16,9 @@ variable "fallback_public_client_enabled" {
 }
 
 variable "identifier_uris" {
-  description = "A set of user-defined URI(s) that uniquely identify an application within its Azure AD tenant, or within a verified custom domain if the application is multi-tenant."
-  type        = list(string)
-  default     = []
+  description = "A map of user-defined URIs that uniquely identify this application within its Entra ID tenant, or within a verified custom domain if the application is multi-tenant."
+  type        = map(string)
+  default     = {}
 }
 
 variable "service_management_reference" {

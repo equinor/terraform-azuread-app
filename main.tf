@@ -1,3 +1,11 @@
+locals {
+  identifier_uris = {
+    # Set default identifier URI.
+    # Ref: https://learn.microsoft.com/en-us/entra/identity-platform/reference-app-manifest#identifieruris-attribute
+    "default" = "api://${azuread_application.this.client_id}"
+  }
+}
+
 data "azuread_client_config" "current" {}
 
 # Azure Active Directory provider version 2.44.0 adds a new simplified resource "azuread_application_registration" for
@@ -78,16 +86,11 @@ resource "random_uuid" "oauth2_permission_scope" {
   count = length(var.oauth2_permission_scopes)
 }
 
-resource "azuread_application_identifier_uri" "default" {
-  application_id = azuread_application.this.id
-  identifier_uri = "api://${azuread_application.this.client_id}"
-}
-
 resource "azuread_application_identifier_uri" "extra" {
-  count = length(var.identifier_uris)
+  for_each = merge(local.identifier_uris, var.identifier_uris)
 
   application_id = azuread_application.this.id
-  identifier_uri = var.identifier_uris[count.index]
+  identifier_uri = each.value
 }
 
 resource "azuread_service_principal" "this" {
