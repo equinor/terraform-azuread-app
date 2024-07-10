@@ -88,11 +88,11 @@ variable "id_token_issuance_enabled" {
   default     = false
 }
 
-variable "required_resource_access" {
+variable "required_resource_accesses" {
   description = "List of required resource access blocks"
   type = list(object({
     resource_app_id = string
-    resource_access = list(object({
+    resource_accesses = list(object({
       id   = string
       type = string
     }))
@@ -100,7 +100,7 @@ variable "required_resource_access" {
   default = []
 
   validation {
-    condition     = alltrue([for resource in var.required_resource_access : alltrue([for access in resource.resource_access : access.type == "Role" || access.type == "Scope"])])
+    condition     = alltrue([for resource in var.required_resource_accesses : alltrue([for access in resource.resource_accesses : access.type == "Role" || access.type == "Scope"])])
     error_message = "Type must be either \"Role\" or \"Scope\""
   }
 }
