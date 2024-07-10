@@ -38,6 +38,7 @@ resource "azuread_application" "this" {
 
   dynamic "required_resource_access" {
     for_each = var.required_resource_access
+
     content {
       resource_app_id = required_resource_access.value.resource_app_id
 
@@ -55,6 +56,7 @@ resource "azuread_application" "this" {
   api {
     dynamic "oauth2_permission_scope" {
       for_each = var.oauth2_permission_scopes
+
       content {
         admin_consent_description  = oauth2_permission_scope.value.admin_consent_description
         admin_consent_display_name = oauth2_permission_scope.value.admin_consent_display_name
