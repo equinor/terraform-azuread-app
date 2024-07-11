@@ -11,4 +11,22 @@ Terraform module which creates a Microsoft Entra ID application.
 - Minimum two owners enforced.
 - Service management reference enforced.
 - Identifier URI added by default.
-- Corresponding service principal automatically created.
+- Corresponding Microsoft Entra service principal automatically created.
+
+## Development
+
+1. Clone this repository:
+
+    ```console
+    git clone https://github.com/equinor/terraform-azuread-app.git
+    ```
+
+1. Login to Microsoft Entra ID:
+
+    ```console
+    az login --allow-no-subscriptions
+    ```
+
+## Contributing
+
+See [Contributing guidelines](https://github.com/equinor/terraform-baseline/blob/main/CONTRIBUTING.md).
