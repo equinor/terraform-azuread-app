@@ -101,7 +101,7 @@ variable "required_resource_accesses" {
 
   validation {
     condition     = alltrue([for resource in var.required_resource_accesses : alltrue([for access in resource.resource_accesses : access.type == "Role" || access.type == "Scope"])])
-    error_message = "Type must be either \"Role\" or \"Scope\""
+    error_message = "Type must be either \"Role\" or \"Scope\"."
   }
 }
 
@@ -128,6 +128,6 @@ variable "oauth2_permission_scopes" {
 
   validation {
     condition     = alltrue([for scope in var.oauth2_permission_scopes : scope.type == "User" || scope.type == "Admin"])
-    error_message = "Type must be either \"User\" or \"Admin\""
+    error_message = "Type must be either \"User\" or \"Admin\"."
   }
 }
