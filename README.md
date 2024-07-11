@@ -4,3 +4,9 @@
 [![Equinor Terraform Baseline](https://img.shields.io/badge/Equinor%20Terraform%20Baseline-1.0.0-blueviolet)](https://github.com/equinor/terraform-baseline)
 
 Terraform module which creates a Microsoft Entra ID application and a corresponding service principal.
+
+## Features
+
+- Identifier URI added by default.
+- Minimum two owners enforced.
+- Service management reference enforced.
