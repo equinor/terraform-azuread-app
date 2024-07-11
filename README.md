@@ -11,7 +11,7 @@ Terraform module which creates a Microsoft Entra ID application.
 - Minimum two owners enforced.
 - Service management reference enforced.
 - Identifier URI added by default.
-- Corresponding Microsoft Entra service principal automatically created.
+- Corresponding Microsoft Entra ID service principal automatically created.
 
 ## Development
 

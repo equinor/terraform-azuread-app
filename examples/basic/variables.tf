@@ -1,5 +1,5 @@
-variable "location" {
-  description = "The location to create the resources in."
-  type        = string
-  default     = "northeurope"
+variable "owners" {
+  description = "A list of object IDs of owners to set for this application."
+  type        = list(string)
+  nullable    = false
 }
