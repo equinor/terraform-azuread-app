@@ -13,5 +13,5 @@ module "app" {
   display_name                 = "app-${random_id.example.hex}"
   service_management_reference = "12345"
 
-  owners = concat([data.azuread_client_config.current.object_id, var.owners])
+  owners = concat([data.azuread_client_config.current.object_id], var.owners)
 }
