@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.0](https://github.com/equinor/terraform-azuread-app/compare/v0.2.0...v0.3.0) (2024-08-28)
+
+
+### Features
+
+* configure app roles and single-page application redirect URIs ([#10](https://github.com/equinor/terraform-azuread-app/issues/10)) ([70139ed](https://github.com/equinor/terraform-azuread-app/commit/70139ed40a9423637e666349dbfbb766c31461ff))
+
 ## [0.2.0](https://github.com/equinor/terraform-azuread-app/compare/v0.1.0...v0.2.0) (2024-07-11)
 
 
