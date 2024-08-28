@@ -50,7 +50,7 @@ resource "azuread_application" "this" {
   }
 
   single_page_application {
-    redirect_uris = var.single_page_redirect_uris
+    redirect_uris = var.single_page_application_redirect_uris
   }
 
   dynamic "required_resource_access" {

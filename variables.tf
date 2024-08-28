@@ -78,13 +78,13 @@ variable "web_redirect_uris" {
   }
 }
 
-variable "single_page_redirect_uris" {
+variable "single_page_application_redirect_uris" {
   description = "A list of URLs where OAuth 2.0 autorization codes and access tokens are sent."
   type        = list(string)
   default     = []
 
   validation {
-    condition     = alltrue([for uri in var.single_page_redirect_uris : can(regex("^https://|^ms-appx-web://|^http://localhost", uri))])
+    condition     = alltrue([for uri in var.single_page_application_redirect_uris : can(regex("^https://|^ms-appx-web://|^http://localhost", uri))])
     error_message = "All URIs must be valid HTTPS URLs excluding localhost."
   }
 }
