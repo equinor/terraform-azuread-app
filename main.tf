@@ -25,6 +25,19 @@ resource "azuread_application" "this" {
     redirect_uris = var.public_client_redirect_uris
   }
 
+  dynamic "app_role" {
+    for_each = var.app_roles
+
+    content {
+      allowed_member_types = app_role.value.allowed_member_types
+      description          = app_role.value.description
+      display_name         = app_role.value.display_name
+      enabled              = app_role.value.enabled
+      id                   = app_role.value.id
+      value                = app_role.value.value
+    }
+  }
+
   web {
     homepage_url  = var.web_homepage_url
     logout_url    = var.web_logout_url
@@ -34,6 +47,10 @@ resource "azuread_application" "this" {
       access_token_issuance_enabled = var.access_token_issuance_enabled
       id_token_issuance_enabled     = var.id_token_issuance_enabled
     }
+  }
+
+  single_page_application {
+    redirect_uris = var.single_page_application_redirect_uris
   }
 
   dynamic "required_resource_access" {

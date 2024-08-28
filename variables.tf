@@ -1,3 +1,16 @@
+variable "app_roles" {
+  description = "A map of application roles to configure for this application."
+  type = list(object({
+    allowed_member_types = list(string)
+    description          = string
+    display_name         = string
+    enabled              = bool
+    id                   = string
+    value                = string
+  }))
+  default = []
+}
+
 variable "display_name" {
   description = "The display name of this application."
   type        = string
@@ -55,12 +68,23 @@ variable "web_logout_url" {
 }
 
 variable "web_redirect_uris" {
-  description = "A list of URLs where web OAuth 2.0 autorization codes and access tokens are sent."
+  description = "A list of URLs where OAuth 2.0 autorization codes and access tokens are sent."
   type        = list(string)
   default     = []
 
   validation {
     condition     = alltrue([for uri in var.web_redirect_uris : can(regex("^https://|^ms-appx-web://|^http://localhost", uri))])
+    error_message = "All URIs must be valid HTTPS URLs excluding localhost."
+  }
+}
+
+variable "single_page_application_redirect_uris" {
+  description = "A list of URLs where OAuth 2.0 autorization codes and access tokens are sent."
+  type        = list(string)
+  default     = []
+
+  validation {
+    condition     = alltrue([for uri in var.single_page_application_redirect_uris : can(regex("^https://|^ms-appx-web://|^http://localhost", uri))])
     error_message = "All URIs must be valid HTTPS URLs excluding localhost."
   }
 }
