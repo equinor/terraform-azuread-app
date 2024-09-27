@@ -5,7 +5,6 @@ variable "app_roles" {
     description          = string
     display_name         = string
     enabled              = bool
-    id                   = string
     value                = string
   }))
   default = []
