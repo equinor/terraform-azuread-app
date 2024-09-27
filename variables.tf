@@ -28,15 +28,93 @@ variable "fallback_public_client_enabled" {
   default     = false
 }
 
+variable "group_membership_claims" {
+  description = "A set of strings containing membership claims issued in a user or OAuth 2.0 access token that the app expects. Possible values are None, SecurityGroup, DirectoryRole, ApplicationGroup or All."
+  type        = set(string)
+  default     = ["None"]
+}
+
 variable "identifier_uris" {
   description = "A map of user-defined URIs that uniquely identify this application within its Microsoft Entra ID tenant, or within a verified custom domain if this application is multi-tenant."
   type        = map(string)
   default     = {}
 }
 
+variable "known_client_applications" {
+  description = "A set of object IDs of applications that are pre-authorized to access this application."
+  type        = set(string)
+  default     = []
+}
+
 variable "service_management_reference" {
   description = "Reference application context information from a service management database, e.g. ServiceNow."
   type        = string
+}
+
+variable "login_url" {
+  description = "The URL where the service provider redirects the user to Microsoft Entra ID to authenticate."
+  type        = string
+  default     = null
+}
+
+variable "notes" {
+  description = "User-specified notes relevant for the management of the application."
+  type        = string
+  default     = null
+}
+
+variable "optional_access_token_claims" {
+  description = <<-EOT
+  A list of optional access token claims to include in the access token. The object has the following structure:
+    `additional_properties` - List of additional properties of the claim. If a property exists in this list, it modifies the behaviour of the optional claim. 
+    Possible values are: cloud_displayname, dns_domain_and_sam_account_name, emit_as_roles, include_externally_authenticated_upn_without_hash, include_externally_authenticated_upn, max_size_limit, netbios_domain_and_sam_account_name, on_premise_security_identifier, sam_account_name, and use_guid.
+    `essential` - Whether the claim specified by the client is necessary to ensure a smooth authorization experience.
+    `name` - The name of the optional claim. For predifined optional claims see https://learn.microsoft.com/en-us/entra/identity-platform/optional-claims-reference
+    `source` - The source of the claim. If source is absent, the claim is a predefined optional claim. If source is user, the value of name is the extension property from the user object.
+  EOT
+  type = list(object({
+    additional_properties = optional(list(string), null)
+    essential             = optional(bool, false)
+    name                  = string
+    saml_claims           = optional(string, null)
+  }))
+  default = []
+}
+
+variable "optional_id_token_claims" {
+  description = <<-EOT
+  A list of optional ID token claims to include in the ID token. The object has the following structure:
+    `additional_properties` - List of additional properties of the claim. If a property exists in this list, it modifies the behaviour of the optional claim. 
+    Possible values are: cloud_displayname, dns_domain_and_sam_account_name, emit_as_roles, include_externally_authenticated_upn_without_hash, include_externally_authenticated_upn, max_size_limit, netbios_domain_and_sam_account_name, on_premise_security_identifier, sam_account_name, and use_guid.
+    `essential` - Whether the claim specified by the client is necessary to ensure a smooth authorization experience.
+    `name` - The name of the optional claim. For predifined optional claims see https://learn.microsoft.com/en-us/entra/identity-platform/optional-claims-reference
+    `source` - The source of the claim. If source is absent, the claim is a predefined optional claim. If source is user, the value of name is the extension property from the user object.
+  EOT
+  type = list(object({
+    additional_properties = optional(list(string), null)
+    essential             = optional(bool, false)
+    name                  = string
+    saml_claims           = optional(string, null)
+  }))
+  default = []
+}
+
+variable "optional_saml2_token_claims" {
+  description = <<-EOT
+  A list of optional SAML 2.0 token claims to include in the SAML 2.0 token. The object has the following structure:
+    `additional_properties` - List of additional properties of the claim. If a property exists in this list, it modifies the behaviour of the optional claim. 
+    Possible values are: cloud_displayname, dns_domain_and_sam_account_name, emit_as_roles, include_externally_authenticated_upn_without_hash, include_externally_authenticated_upn, max_size_limit, netbios_domain_and_sam_account_name, on_premise_security_identifier, sam_account_name, and use_guid.
+    `essential` - Whether the claim specified by the client is necessary to ensure a smooth authorization experience.
+    `name` - The name of the optional claim. For predifined optional claims see https://learn.microsoft.com/en-us/entra/identity-platform/optional-claims-reference
+    `source` - The source of the claim. If source is absent, the claim is a predefined optional claim. If source is user, the value of name is the extension property from the user object.
+  EOT
+  type = list(object({
+    additional_properties = optional(list(string), null)
+    essential             = optional(bool, false)
+    name                  = string
+    saml_claims           = optional(string, null)
+  }))
+  default = []
 }
 
 variable "owners" {
@@ -49,10 +127,20 @@ variable "owners" {
   }
 }
 
-variable "login_url" {
-  description = "The URL where the service provider redirects the user to Microsoft Entra ID to authenticate."
-  type        = string
-  default     = null
+variable "pre_authorized_client_applications" {
+  description = <<-EOT
+  A list of objects containing the client IDs and permission ids of applications that are pre-authorized to access this application.
+  The object has the following structure:
+    `client_id` - The client ID of the pre-authorized application.
+    `permissions` - A set of permissions that the pre-authorized application has access to.
+    The permissions Must have been created using the `oauth2_permission_scope` variable and should be the same as the name of that scoop.
+  EOT
+  type = list(object({
+    client_id   = string
+    permissions = set(string)
+  }))
+
+  default = []
 }
 
 variable "web_homepage_url" {
@@ -111,6 +199,19 @@ variable "id_token_issuance_enabled" {
   type        = bool
   default     = false
 }
+
+
+variable "requested_access_token_version" {
+  description = "The access token version to request."
+  type        = number
+  default     = 2
+
+  validation {
+    condition     = var.requested_access_token_version == 1 || var.requested_access_token_version == 2
+    error_message = "The requested access token version must be either 1 or 2."
+  }
+}
+
 
 variable "required_resource_accesses" {
   description = "A list of required resource accesses to configure for this application."

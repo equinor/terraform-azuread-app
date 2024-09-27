@@ -71,6 +71,8 @@ resource "azuread_application" "this" {
   }
 
   api {
+    known_client_applications      = var.known_client_applications
+    requested_access_token_version = var.requested_access_token_version
     dynamic "oauth2_permission_scope" {
       for_each = var.oauth2_permission_scopes
 
@@ -90,6 +92,45 @@ resource "azuread_application" "this" {
     }
   }
 
+
+  group_membership_claims = var.group_membership_claims
+  optional_claims {
+    dynamic "access_token" {
+      for_each = var.optional_access_token_claims
+      content {
+        additional_properties = access_token.value.additional_properties
+        essential             = access_token.value.essential
+        name                  = access_token.value.name
+        source                = lookup(access_token.value, "source", null)
+      }
+    }
+
+    dynamic "id_token" {
+      for_each = var.optional_id_token_claims
+
+      content {
+        additional_properties = id_token.value.additional_properties
+        essential             = id_token.value.essential
+        name                  = id_token.value.name
+        source                = lookup(id_token.value, "source", null)
+      }
+    }
+
+    dynamic "saml2_token" {
+      for_each = var.optional_saml2_token_claims
+
+      content {
+        additional_properties = saml2_token.value.additional_properties
+        essential             = saml2_token.value.essential
+        name                  = saml2_token.value.name
+        source                = lookup(saml2_token.value, "source", null)
+      }
+
+    }
+  }
+
+  notes = var.notes
+
   lifecycle {
     ignore_changes = [
       # Configure identifier URIs using the standalone "azuread_application_identifier_uri" resource instead.
@@ -105,7 +146,8 @@ resource "azuread_application" "this" {
 }
 
 resource "random_uuid" "oauth2_permission_scope" {
-  count = length(var.oauth2_permission_scopes)
+  //count    = length(var.oauth2_permission_scopes)
+  for_each = var.oauth2_permission_scopes
 }
 
 resource "azuread_application_identifier_uri" "this" {
@@ -113,6 +155,16 @@ resource "azuread_application_identifier_uri" "this" {
 
   application_id = azuread_application.this.id
   identifier_uri = each.value
+}
+
+resource "azuread_application_pre_authorized" "this" {
+  for_each = { for client in var.pre_authorized_client_applications : client.client_id => client }
+
+  application_id       = azuread_application.this.id
+  authorized_client_id = each.value.client_id
+
+  # This is a workaround to point to the correct permission IDs as we genereate the random_uuids for each permission scope
+  permission_ids = [for permission in each.value.permissions : random_uuid.oauth2_permission_scope[permission].result]
 }
 
 resource "azuread_service_principal" "this" {
