@@ -33,7 +33,7 @@ resource "azuread_application" "this" {
       description          = app_role.value.description
       display_name         = app_role.value.display_name
       enabled              = app_role.value.enabled
-      id                   = random_uuid.app_role[app_role.value.value].result
+      id                   = random_uuid.app_role[app_role.key].result
       value                = app_role.value.value
     }
   }
@@ -152,8 +152,7 @@ resource "random_uuid" "oauth2_permission_scope" {
 
 resource "random_uuid" "app_role" {
   // Generate random UUIDs for each app role
-  // We use app role value as key for since it is the most likely value to be unique
-  for_each = { for role in var.app_roles : role.value => role }
+  for_each = var.app_roles
 }
 
 resource "azuread_application_identifier_uri" "this" {

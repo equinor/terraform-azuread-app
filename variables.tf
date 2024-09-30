@@ -1,6 +1,6 @@
 variable "app_roles" {
   description = "A map of application roles to configure for this application."
-  type = list(object({
+  type = map(object({
     allowed_member_types = list(string)
     description          = string
     display_name         = string
