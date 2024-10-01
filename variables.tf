@@ -7,7 +7,7 @@ variable "app_roles" {
     enabled              = bool
     value                = string
   }))
-  default = []
+  default = {}
 }
 
 variable "display_name" {
