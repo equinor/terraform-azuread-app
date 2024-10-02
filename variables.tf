@@ -210,7 +210,6 @@ variable "api_requested_access_token_version" {
   }
 }
 
-
 variable "required_resource_accesses" {
   description = "A list of required resource accesses to configure for this application."
   type = list(object({
