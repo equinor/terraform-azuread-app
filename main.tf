@@ -103,7 +103,7 @@ resource "azuread_application" "this" {
         additional_properties = access_token.value.additional_properties
         essential             = access_token.value.essential
         name                  = access_token.value.name
-        source                = lookup(access_token.value, "source", null)
+        source                = access_token.value.source
       }
     }
 
@@ -114,7 +114,7 @@ resource "azuread_application" "this" {
         additional_properties = id_token.value.additional_properties
         essential             = id_token.value.essential
         name                  = id_token.value.name
-        source                = lookup(id_token.value, "source", null)
+        source                = id_token.value.source
       }
     }
 
@@ -125,7 +125,7 @@ resource "azuread_application" "this" {
         additional_properties = saml2_token.value.additional_properties
         essential             = saml2_token.value.essential
         name                  = saml2_token.value.name
-        source                = lookup(saml2_token.value, "source", null)
+        source                = saml2_token.value.source
       }
 
     }

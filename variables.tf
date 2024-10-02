@@ -75,7 +75,7 @@ variable "access_tokens" {
     additional_properties = optional(list(string), null)
     essential             = optional(bool, false)
     name                  = string
-    saml_claims           = optional(string, null)
+    source                = optional(string, null)
   }))
   default = []
 }
@@ -93,7 +93,7 @@ variable "id_tokens" {
     additional_properties = optional(list(string), null)
     essential             = optional(bool, false)
     name                  = string
-    saml_claims           = optional(string, null)
+    source                = optional(string, null)
   }))
   default = []
 }
@@ -111,7 +111,7 @@ variable "saml2_tokens" {
     additional_properties = optional(list(string), null)
     essential             = optional(bool, false)
     name                  = string
-    saml_claims           = optional(string, null)
+    source                = optional(string, null)
   }))
   default = []
 }
