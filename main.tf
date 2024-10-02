@@ -20,6 +20,7 @@ resource "azuread_application" "this" {
   device_only_auth_enabled       = var.device_only_auth_enabled
   fallback_public_client_enabled = var.fallback_public_client_enabled
   sign_in_audience               = "AzureADMyOrg"
+  group_membership_claims        = var.group_membership_claims
 
   public_client {
     redirect_uris = var.public_client_redirect_uris
@@ -92,8 +93,6 @@ resource "azuread_application" "this" {
       }
     }
   }
-
-  group_membership_claims = var.group_membership_claims
 
   optional_claims {
     dynamic "access_token" {
