@@ -21,6 +21,7 @@ resource "azuread_application" "this" {
   fallback_public_client_enabled = var.fallback_public_client_enabled
   sign_in_audience               = "AzureADMyOrg"
   group_membership_claims        = var.group_membership_claims
+  notes                          = var.notes
 
   public_client {
     redirect_uris = var.public_client_redirect_uris
@@ -128,8 +129,6 @@ resource "azuread_application" "this" {
 
     }
   }
-
-  notes = var.notes
 
   lifecycle {
     ignore_changes = [
