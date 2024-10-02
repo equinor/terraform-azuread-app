@@ -39,7 +39,7 @@ variable "identifier_uris" {
   default     = {}
 }
 
-variable "known_client_applications" {
+variable "api_known_client_applications" {
   description = "A set of object IDs of applications that are pre-authorized to access this application."
   type        = set(string)
   default     = []
@@ -199,8 +199,7 @@ variable "id_token_issuance_enabled" {
   default     = false
 }
 
-
-variable "requested_access_token_version" {
+variable "api_requested_access_token_version" {
   description = "The access token version to request."
   type        = number
   default     = 2
