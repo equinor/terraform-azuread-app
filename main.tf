@@ -97,7 +97,7 @@ resource "azuread_application" "this" {
 
   optional_claims {
     dynamic "access_token" {
-      for_each = var.access_tokens
+      for_each = var.optional_claims_access_tokens
 
       content {
         additional_properties = access_token.value.additional_properties
@@ -108,7 +108,7 @@ resource "azuread_application" "this" {
     }
 
     dynamic "id_token" {
-      for_each = var.id_tokens
+      for_each = var.optional_claims_id_tokens
 
       content {
         additional_properties = id_token.value.additional_properties
@@ -119,7 +119,7 @@ resource "azuread_application" "this" {
     }
 
     dynamic "saml2_token" {
-      for_each = var.saml2_tokens
+      for_each = var.optional_claims_saml2_tokens
 
       content {
         additional_properties = saml2_token.value.additional_properties

@@ -62,7 +62,7 @@ variable "notes" {
   default     = null
 }
 
-variable "access_tokens" {
+variable "optional_claims_access_tokens" {
   description = <<-EOT
   A list of optional access token claims to include in the access token. The object has the following structure:
     `additional_properties` - List of additional properties of the claim. If a property exists in this list, it modifies the behaviour of the optional claim.
@@ -80,7 +80,7 @@ variable "access_tokens" {
   default = []
 }
 
-variable "id_tokens" {
+variable "optional_claims_id_tokens" {
   description = <<-EOT
   A list of optional ID token claims to include in the ID token. The object has the following structure:
     `additional_properties` - List of additional properties of the claim. If a property exists in this list, it modifies the behaviour of the optional claim.
@@ -98,7 +98,7 @@ variable "id_tokens" {
   default = []
 }
 
-variable "saml2_tokens" {
+variable "optional_claims_saml2_tokens" {
   description = <<-EOT
   A list of optional SAML 2.0 token claims to include in the SAML 2.0 token. The object has the following structure:
     `additional_properties` - List of additional properties of the claim. If a property exists in this list, it modifies the behaviour of the optional claim.
