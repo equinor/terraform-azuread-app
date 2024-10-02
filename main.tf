@@ -73,6 +73,7 @@ resource "azuread_application" "this" {
   api {
     known_client_applications      = var.known_client_applications
     requested_access_token_version = var.requested_access_token_version
+
     dynamic "oauth2_permission_scope" {
       for_each = var.oauth2_permission_scopes
 
@@ -92,8 +93,8 @@ resource "azuread_application" "this" {
     }
   }
 
-
   group_membership_claims = var.group_membership_claims
+
   optional_claims {
     dynamic "access_token" {
       for_each = var.optional_access_token_claims
