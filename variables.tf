@@ -62,10 +62,10 @@ variable "notes" {
   default     = null
 }
 
-variable "optional_access_token_claims" {
+variable "access_tokens" {
   description = <<-EOT
   A list of optional access token claims to include in the access token. The object has the following structure:
-    `additional_properties` - List of additional properties of the claim. If a property exists in this list, it modifies the behaviour of the optional claim. 
+    `additional_properties` - List of additional properties of the claim. If a property exists in this list, it modifies the behaviour of the optional claim.
     Possible values are: cloud_displayname, dns_domain_and_sam_account_name, emit_as_roles, include_externally_authenticated_upn_without_hash, include_externally_authenticated_upn, max_size_limit, netbios_domain_and_sam_account_name, on_premise_security_identifier, sam_account_name, and use_guid.
     `essential` - Whether the claim specified by the client is necessary to ensure a smooth authorization experience.
     `name` - The name of the optional claim. For predifined optional claims see https://learn.microsoft.com/en-us/entra/identity-platform/optional-claims-reference
@@ -80,10 +80,10 @@ variable "optional_access_token_claims" {
   default = []
 }
 
-variable "optional_id_token_claims" {
+variable "id_tokens" {
   description = <<-EOT
   A list of optional ID token claims to include in the ID token. The object has the following structure:
-    `additional_properties` - List of additional properties of the claim. If a property exists in this list, it modifies the behaviour of the optional claim. 
+    `additional_properties` - List of additional properties of the claim. If a property exists in this list, it modifies the behaviour of the optional claim.
     Possible values are: cloud_displayname, dns_domain_and_sam_account_name, emit_as_roles, include_externally_authenticated_upn_without_hash, include_externally_authenticated_upn, max_size_limit, netbios_domain_and_sam_account_name, on_premise_security_identifier, sam_account_name, and use_guid.
     `essential` - Whether the claim specified by the client is necessary to ensure a smooth authorization experience.
     `name` - The name of the optional claim. For predifined optional claims see https://learn.microsoft.com/en-us/entra/identity-platform/optional-claims-reference
@@ -98,10 +98,10 @@ variable "optional_id_token_claims" {
   default = []
 }
 
-variable "optional_saml2_token_claims" {
+variable "saml2_tokens" {
   description = <<-EOT
   A list of optional SAML 2.0 token claims to include in the SAML 2.0 token. The object has the following structure:
-    `additional_properties` - List of additional properties of the claim. If a property exists in this list, it modifies the behaviour of the optional claim. 
+    `additional_properties` - List of additional properties of the claim. If a property exists in this list, it modifies the behaviour of the optional claim.
     Possible values are: cloud_displayname, dns_domain_and_sam_account_name, emit_as_roles, include_externally_authenticated_upn_without_hash, include_externally_authenticated_upn, max_size_limit, netbios_domain_and_sam_account_name, on_premise_security_identifier, sam_account_name, and use_guid.
     `essential` - Whether the claim specified by the client is necessary to ensure a smooth authorization experience.
     `name` - The name of the optional claim. For predifined optional claims see https://learn.microsoft.com/en-us/entra/identity-platform/optional-claims-reference
