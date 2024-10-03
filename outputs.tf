@@ -1,9 +1,9 @@
-output "object_id" {
+output "application_object_id" {
   description = "The object ID of this application."
   value       = azuread_application.this.object_id
 }
 
-output "client_id" {
+output "application_client_id" {
   description = "The client ID of this application."
   value       = azuread_application.this.client_id
 }
