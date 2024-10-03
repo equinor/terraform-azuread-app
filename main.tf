@@ -20,6 +20,8 @@ resource "azuread_application" "this" {
   device_only_auth_enabled       = var.device_only_auth_enabled
   fallback_public_client_enabled = var.fallback_public_client_enabled
   sign_in_audience               = "AzureADMyOrg"
+  group_membership_claims        = var.group_membership_claims
+  notes                          = var.notes
 
   public_client {
     redirect_uris = var.public_client_redirect_uris
@@ -71,8 +73,9 @@ resource "azuread_application" "this" {
   }
 
   api {
-    known_client_applications      = var.known_client_applications
-    requested_access_token_version = var.requested_access_token_version
+    known_client_applications      = var.api_known_client_applications
+    requested_access_token_version = var.api_requested_access_token_version
+
     dynamic "oauth2_permission_scope" {
       for_each = var.oauth2_permission_scopes
 
@@ -92,44 +95,41 @@ resource "azuread_application" "this" {
     }
   }
 
-
-  group_membership_claims = var.group_membership_claims
   optional_claims {
     dynamic "access_token" {
-      for_each = var.optional_access_token_claims
+      for_each = var.optional_claims_access_tokens
+
       content {
         additional_properties = access_token.value.additional_properties
         essential             = access_token.value.essential
         name                  = access_token.value.name
-        source                = lookup(access_token.value, "source", null)
+        source                = access_token.value.source
       }
     }
 
     dynamic "id_token" {
-      for_each = var.optional_id_token_claims
+      for_each = var.optional_claims_id_tokens
 
       content {
         additional_properties = id_token.value.additional_properties
         essential             = id_token.value.essential
         name                  = id_token.value.name
-        source                = lookup(id_token.value, "source", null)
+        source                = id_token.value.source
       }
     }
 
     dynamic "saml2_token" {
-      for_each = var.optional_saml2_token_claims
+      for_each = var.optional_claims_saml2_tokens
 
       content {
         additional_properties = saml2_token.value.additional_properties
         essential             = saml2_token.value.essential
         name                  = saml2_token.value.name
-        source                = lookup(saml2_token.value, "source", null)
+        source                = saml2_token.value.source
       }
 
     }
   }
-
-  notes = var.notes
 
   lifecycle {
     ignore_changes = [
