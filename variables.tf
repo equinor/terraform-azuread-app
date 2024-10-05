@@ -1,3 +1,8 @@
+variable "application_display_name" {
+  description = "The display name of this application."
+  type        = string
+}
+
 variable "app_roles" {
   description = "A map of application roles to configure for this application."
   type = map(object({
@@ -8,11 +13,6 @@ variable "app_roles" {
     value                = string
   }))
   default = {}
-}
-
-variable "display_name" {
-  description = "The display name of this application."
-  type        = string
 }
 
 variable "device_only_auth_enabled" {
