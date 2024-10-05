@@ -162,16 +162,6 @@ resource "azuread_application_identifier_uri" "this" {
   identifier_uri = each.value
 }
 
-resource "azuread_application_pre_authorized" "this" {
-  for_each = { for client in var.pre_authorized_client_applications : client.client_id => client }
-
-  application_id       = azuread_application.this.id
-  authorized_client_id = each.value.client_id
-
-  # This is a workaround to point to the correct permission IDs as we genereate the random_uuids for each permission scope
-  permission_ids = [for permission in each.value.permissions : random_uuid.oauth2_permission_scope[permission].result]
-}
-
 resource "azuread_service_principal" "this" {
   client_id = azuread_application.this.client_id
   owners    = var.owners

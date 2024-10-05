@@ -126,22 +126,6 @@ variable "owners" {
   }
 }
 
-variable "pre_authorized_client_applications" {
-  description = <<-EOT
-  A list of objects containing the client IDs and permission ids of applications that are pre-authorized to access this application.
-  The object has the following structure:
-    `client_id` - The client ID of the pre-authorized application.
-    `permissions` - A set of permissions that the pre-authorized application has access to.
-    The permissions Must have been created using the `oauth2_permission_scope` variable and should be the same as the name of that scoop.
-  EOT
-  type = list(object({
-    client_id   = string
-    permissions = set(string)
-  }))
-
-  default = []
-}
-
 variable "web_homepage_url" {
   description = "The home or landing page URL of this application."
   type        = string
