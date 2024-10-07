@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0](https://github.com/equinor/terraform-azuread-app/compare/v0.3.0...v0.4.0) (2024-10-07)
+
+
+### Features
+
+* configure group membership claims and optional claims ([#12](https://github.com/equinor/terraform-azuread-app/issues/12)) ([3088612](https://github.com/equinor/terraform-azuread-app/commit/3088612d680b0095102c619d0b05bbbdbfcfd082))
+
 ## [0.3.0](https://github.com/equinor/terraform-azuread-app/compare/v0.2.0...v0.3.0) (2024-08-28)
 
 
