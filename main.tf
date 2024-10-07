@@ -20,6 +20,8 @@ resource "azuread_application" "this" {
   device_only_auth_enabled       = var.device_only_auth_enabled
   fallback_public_client_enabled = var.fallback_public_client_enabled
   sign_in_audience               = "AzureADMyOrg"
+  group_membership_claims        = var.group_membership_claims
+  notes                          = var.notes
 
   public_client {
     redirect_uris = var.public_client_redirect_uris
@@ -33,7 +35,7 @@ resource "azuread_application" "this" {
       description          = app_role.value.description
       display_name         = app_role.value.display_name
       enabled              = app_role.value.enabled
-      id                   = app_role.value.id
+      id                   = random_uuid.app_role[app_role.key].result
       value                = app_role.value.value
     }
   }
@@ -71,6 +73,9 @@ resource "azuread_application" "this" {
   }
 
   api {
+    known_client_applications      = var.api_known_client_applications
+    requested_access_token_version = var.api_requested_access_token_version
+
     dynamic "oauth2_permission_scope" {
       for_each = var.oauth2_permission_scopes
 
@@ -90,6 +95,42 @@ resource "azuread_application" "this" {
     }
   }
 
+  optional_claims {
+    dynamic "access_token" {
+      for_each = var.optional_claims_access_tokens
+
+      content {
+        additional_properties = access_token.value.additional_properties
+        essential             = access_token.value.essential
+        name                  = access_token.value.name
+        source                = access_token.value.source
+      }
+    }
+
+    dynamic "id_token" {
+      for_each = var.optional_claims_id_tokens
+
+      content {
+        additional_properties = id_token.value.additional_properties
+        essential             = id_token.value.essential
+        name                  = id_token.value.name
+        source                = id_token.value.source
+      }
+    }
+
+    dynamic "saml2_token" {
+      for_each = var.optional_claims_saml2_tokens
+
+      content {
+        additional_properties = saml2_token.value.additional_properties
+        essential             = saml2_token.value.essential
+        name                  = saml2_token.value.name
+        source                = saml2_token.value.source
+      }
+
+    }
+  }
+
   lifecycle {
     ignore_changes = [
       # Configure identifier URIs using the standalone "azuread_application_identifier_uri" resource instead.
@@ -105,7 +146,13 @@ resource "azuread_application" "this" {
 }
 
 resource "random_uuid" "oauth2_permission_scope" {
-  count = length(var.oauth2_permission_scopes)
+  // Generate random UUIDs for each permission scope
+  for_each = var.oauth2_permission_scopes
+}
+
+resource "random_uuid" "app_role" {
+  // Generate random UUIDs for each app role
+  for_each = var.app_roles
 }
 
 resource "azuread_application_identifier_uri" "this" {

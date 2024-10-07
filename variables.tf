@@ -5,15 +5,14 @@ variable "application_display_name" {
 
 variable "app_roles" {
   description = "A map of application roles to configure for this application."
-  type = list(object({
+  type = map(object({
     allowed_member_types = list(string)
     description          = string
     display_name         = string
     enabled              = bool
-    id                   = string
     value                = string
   }))
-  default = []
+  default = {}
 }
 
 variable "device_only_auth_enabled" {
@@ -28,15 +27,93 @@ variable "fallback_public_client_enabled" {
   default     = false
 }
 
+variable "group_membership_claims" {
+  description = "A set of strings containing membership claims issued in a user or OAuth 2.0 access token that the app expects. Possible values are None, SecurityGroup, DirectoryRole, ApplicationGroup or All."
+  type        = set(string)
+  default     = ["None"]
+}
+
 variable "identifier_uris" {
   description = "A map of user-defined URIs that uniquely identify this application within its Microsoft Entra ID tenant, or within a verified custom domain if this application is multi-tenant."
   type        = map(string)
   default     = {}
 }
 
+variable "api_known_client_applications" {
+  description = "A set of object IDs of applications that are pre-authorized to access this application."
+  type        = set(string)
+  default     = []
+}
+
 variable "service_management_reference" {
   description = "Reference application context information from a service management database, e.g. ServiceNow."
   type        = string
+}
+
+variable "login_url" {
+  description = "The URL where the service provider redirects the user to Microsoft Entra ID to authenticate."
+  type        = string
+  default     = null
+}
+
+variable "notes" {
+  description = "User-specified notes relevant for the management of the application."
+  type        = string
+  default     = null
+}
+
+variable "optional_claims_access_tokens" {
+  description = <<-EOT
+  A list of optional access token claims to include in the access token. The object has the following structure:
+    `additional_properties` - List of additional properties of the claim. If a property exists in this list, it modifies the behaviour of the optional claim.
+    Possible values are: cloud_displayname, dns_domain_and_sam_account_name, emit_as_roles, include_externally_authenticated_upn_without_hash, include_externally_authenticated_upn, max_size_limit, netbios_domain_and_sam_account_name, on_premise_security_identifier, sam_account_name, and use_guid.
+    `essential` - Whether the claim specified by the client is necessary to ensure a smooth authorization experience.
+    `name` - The name of the optional claim. For predifined optional claims see https://learn.microsoft.com/en-us/entra/identity-platform/optional-claims-reference
+    `source` - The source of the claim. If source is absent, the claim is a predefined optional claim. If source is user, the value of name is the extension property from the user object.
+  EOT
+  type = list(object({
+    additional_properties = optional(list(string), null)
+    essential             = optional(bool, false)
+    name                  = string
+    source                = optional(string, null)
+  }))
+  default = []
+}
+
+variable "optional_claims_id_tokens" {
+  description = <<-EOT
+  A list of optional ID token claims to include in the ID token. The object has the following structure:
+    `additional_properties` - List of additional properties of the claim. If a property exists in this list, it modifies the behaviour of the optional claim.
+    Possible values are: cloud_displayname, dns_domain_and_sam_account_name, emit_as_roles, include_externally_authenticated_upn_without_hash, include_externally_authenticated_upn, max_size_limit, netbios_domain_and_sam_account_name, on_premise_security_identifier, sam_account_name, and use_guid.
+    `essential` - Whether the claim specified by the client is necessary to ensure a smooth authorization experience.
+    `name` - The name of the optional claim. For predifined optional claims see https://learn.microsoft.com/en-us/entra/identity-platform/optional-claims-reference
+    `source` - The source of the claim. If source is absent, the claim is a predefined optional claim. If source is user, the value of name is the extension property from the user object.
+  EOT
+  type = list(object({
+    additional_properties = optional(list(string), null)
+    essential             = optional(bool, false)
+    name                  = string
+    source                = optional(string, null)
+  }))
+  default = []
+}
+
+variable "optional_claims_saml2_tokens" {
+  description = <<-EOT
+  A list of optional SAML 2.0 token claims to include in the SAML 2.0 token. The object has the following structure:
+    `additional_properties` - List of additional properties of the claim. If a property exists in this list, it modifies the behaviour of the optional claim.
+    Possible values are: cloud_displayname, dns_domain_and_sam_account_name, emit_as_roles, include_externally_authenticated_upn_without_hash, include_externally_authenticated_upn, max_size_limit, netbios_domain_and_sam_account_name, on_premise_security_identifier, sam_account_name, and use_guid.
+    `essential` - Whether the claim specified by the client is necessary to ensure a smooth authorization experience.
+    `name` - The name of the optional claim. For predifined optional claims see https://learn.microsoft.com/en-us/entra/identity-platform/optional-claims-reference
+    `source` - The source of the claim. If source is absent, the claim is a predefined optional claim. If source is user, the value of name is the extension property from the user object.
+  EOT
+  type = list(object({
+    additional_properties = optional(list(string), null)
+    essential             = optional(bool, false)
+    name                  = string
+    source                = optional(string, null)
+  }))
+  default = []
 }
 
 variable "owners" {
@@ -47,12 +124,6 @@ variable "owners" {
     condition     = length(var.owners) >= 2
     error_message = "At least two owners must be set."
   }
-}
-
-variable "login_url" {
-  description = "The URL where the service provider redirects the user to Microsoft Entra ID to authenticate."
-  type        = string
-  default     = null
 }
 
 variable "web_homepage_url" {
@@ -110,6 +181,17 @@ variable "id_token_issuance_enabled" {
   description = "Should this application be allowed to request an ID token?"
   type        = bool
   default     = false
+}
+
+variable "api_requested_access_token_version" {
+  description = "The access token version to request."
+  type        = number
+  default     = 2
+
+  validation {
+    condition     = var.requested_access_token_version == 1 || var.requested_access_token_version == 2
+    error_message = "The requested access token version must be either 1 or 2."
+  }
 }
 
 variable "required_resource_accesses" {
