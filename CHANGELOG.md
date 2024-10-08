@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.1](https://github.com/equinor/terraform-azuread-app/compare/v0.4.0...v0.4.1) (2024-10-08)
+
+
+### Bug Fixes
+
+* validation rule does not correctly reference variable ([#17](https://github.com/equinor/terraform-azuread-app/issues/17)) ([dd605e7](https://github.com/equinor/terraform-azuread-app/commit/dd605e728a0b5df6df5eceb3d31f8104a02072bb))
+
 ## [0.4.0](https://github.com/equinor/terraform-azuread-app/compare/v0.3.0...v0.4.0) (2024-10-07)
 
 
