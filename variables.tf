@@ -189,7 +189,7 @@ variable "api_requested_access_token_version" {
   default     = 2
 
   validation {
-    condition     = var.requested_access_token_version == 1 || var.requested_access_token_version == 2
+    condition     = var.api_requested_access_token_version == 1 || var.api_requested_access_token_version == 2
     error_message = "The requested access token version must be either 1 or 2."
   }
 }
