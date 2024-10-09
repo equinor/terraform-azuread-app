@@ -46,8 +46,8 @@ resource "azuread_application" "this" {
     redirect_uris = var.web_redirect_uris
 
     implicit_grant {
-      access_token_issuance_enabled = var.access_token_issuance_enabled
-      id_token_issuance_enabled     = var.id_token_issuance_enabled
+      access_token_issuance_enabled = var.web_implicit_grant_access_token_issuance_enabled
+      id_token_issuance_enabled     = var.web_implicit_grant_id_token_issuance_enabled
     }
   }
 
@@ -77,7 +77,7 @@ resource "azuread_application" "this" {
     requested_access_token_version = var.api_requested_access_token_version
 
     dynamic "oauth2_permission_scope" {
-      for_each = var.oauth2_permission_scopes
+      for_each = var.api_oauth2_permission_scopes
 
       content {
         admin_consent_description  = oauth2_permission_scope.value.admin_consent_description
@@ -147,7 +147,7 @@ resource "azuread_application" "this" {
 
 resource "random_uuid" "oauth2_permission_scope" {
   // Generate random UUIDs for each permission scope
-  for_each = var.oauth2_permission_scopes
+  for_each = var.api_oauth2_permission_scopes
 }
 
 resource "random_uuid" "app_role" {
