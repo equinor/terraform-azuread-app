@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.2](https://github.com/equinor/terraform-azuread-app/compare/v0.4.1...v0.4.2) (2024-10-11)
+
+
+### Bug Fixes
+
+* output variable is not valid ([#20](https://github.com/equinor/terraform-azuread-app/issues/20)) ([521b82d](https://github.com/equinor/terraform-azuread-app/commit/521b82d016b28108a962b2a32b6c728411b3a721))
+
 ## [0.4.1](https://github.com/equinor/terraform-azuread-app/compare/v0.4.0...v0.4.1) (2024-10-08)
 
 
