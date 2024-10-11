@@ -18,7 +18,7 @@ output "service_principal_object_id" {
   value       = azuread_service_principal.this.object_id
 }
 
-output "oauth2_permission_scope_ids" {
+output "api_oauth2_permission_scope_ids" {
   description = "A map of Oauth2 permission scope IDs."
   value = {
     for k, v in azuread_application.this.api[0].oauth2_permission_scope : k => v.id

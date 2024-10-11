@@ -62,7 +62,7 @@ variable "notes" {
   default     = null
 }
 
-variable "optional_claims_access_tokens" {
+variable "optional_claims_access_token" {
   description = <<-EOT
   A list of optional access token claims to include in the access token. The object has the following structure:
     `additional_properties` - List of additional properties of the claim. If a property exists in this list, it modifies the behaviour of the optional claim.
@@ -80,7 +80,7 @@ variable "optional_claims_access_tokens" {
   default = []
 }
 
-variable "optional_claims_id_tokens" {
+variable "optional_claims_id_token" {
   description = <<-EOT
   A list of optional ID token claims to include in the ID token. The object has the following structure:
     `additional_properties` - List of additional properties of the claim. If a property exists in this list, it modifies the behaviour of the optional claim.
@@ -98,7 +98,7 @@ variable "optional_claims_id_tokens" {
   default = []
 }
 
-variable "optional_claims_saml2_tokens" {
+variable "optional_claims_saml2_token" {
   description = <<-EOT
   A list of optional SAML 2.0 token claims to include in the SAML 2.0 token. The object has the following structure:
     `additional_properties` - List of additional properties of the claim. If a property exists in this list, it modifies the behaviour of the optional claim.
@@ -171,13 +171,13 @@ variable "public_client_redirect_uris" {
   }
 }
 
-variable "access_token_issuance_enabled" {
+variable "web_implicit_grant_access_token_issuance_enabled" {
   description = "Should this application be allowed to request an access token?"
   type        = bool
   default     = false
 }
 
-variable "id_token_issuance_enabled" {
+variable "web_implicit_grant_id_token_issuance_enabled" {
   description = "Should this application be allowed to request an ID token?"
   type        = bool
   default     = false
@@ -211,7 +211,7 @@ variable "required_resource_accesses" {
   }
 }
 
-variable "oauth2_permission_scopes" {
+variable "api_oauth2_permission_scopes" {
   description = "A list of required OAuth 2.0 permission scopes to configure for this application."
   # Since the primary use of this variable is the creation of a dynamic nested
   # block "azuread_application.this.api[0].oauth2_permission_scope", we'd
@@ -233,7 +233,7 @@ variable "oauth2_permission_scopes" {
   default = {}
 
   validation {
-    condition     = alltrue([for scope in var.oauth2_permission_scopes : scope.type == "User" || scope.type == "Admin"])
+    condition     = alltrue([for scope in var.api_oauth2_permission_scopes : scope.type == "User" || scope.type == "Admin"])
     error_message = "Type must be either \"User\" or \"Admin\"."
   }
 }
