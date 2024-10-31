@@ -22,3 +22,8 @@ output "api_oauth2_permission_scope_ids" {
   description = "A map of Oauth2 permission scope IDs."
   value       = azuread_application.this.oauth2_permission_scope_ids
 }
+
+output "app_role_ids" {
+  description = "A map of app role IDs."
+  value       = azuread_application.this.app_role_ids
+}
