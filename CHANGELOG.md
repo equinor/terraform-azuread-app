@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.0](https://github.com/equinor/terraform-azuread-app/compare/v0.4.2...v0.5.0) (2024-11-01)
+
+
+### Features
+
+* add app role ids output ([#22](https://github.com/equinor/terraform-azuread-app/issues/22)) ([b03f639](https://github.com/equinor/terraform-azuread-app/commit/b03f639de79131ed91ac55b0be00540f23a43976))
+
 ## [0.4.2](https://github.com/equinor/terraform-azuread-app/compare/v0.4.1...v0.4.2) (2024-10-11)
 
 
