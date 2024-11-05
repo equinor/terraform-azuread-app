@@ -45,6 +45,12 @@ variable "api_known_client_applications" {
   default     = []
 }
 
+variable "api_mapped_claims_enabled" {
+  description = "Allows an application to use claims mapping without specifying a custom signing key."
+  type        = bool
+  default     = false
+}
+
 variable "service_management_reference" {
   description = "Reference application context information from a service management database, e.g. ServiceNow."
   type        = string

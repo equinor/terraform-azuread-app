@@ -76,6 +76,7 @@ resource "azuread_application" "this" {
   api {
     known_client_applications      = var.api_known_client_applications
     requested_access_token_version = var.api_requested_access_token_version
+    mapped_claims_enabled          = var.api_mapped_claims_enabled
 
     dynamic "oauth2_permission_scope" {
       for_each = var.api_oauth2_permission_scopes
