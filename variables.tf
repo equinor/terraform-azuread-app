@@ -62,6 +62,12 @@ variable "notes" {
   default     = null
 }
 
+variable "description" {
+  description = "A description of the application, as shown to end users."
+  type        = string
+  default     = null
+}
+
 variable "optional_claims_access_token" {
   description = <<-EOT
   A list of optional access token claims to include in the access token. The object has the following structure:
