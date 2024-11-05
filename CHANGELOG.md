@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.0](https://github.com/equinor/terraform-azuread-app/compare/v0.5.0...v0.6.0) (2024-11-05)
+
+
+### Features
+
+* set application description ([#24](https://github.com/equinor/terraform-azuread-app/issues/24)) ([e38e1d2](https://github.com/equinor/terraform-azuread-app/commit/e38e1d2d1bb9ad836bd201877058048af81a7af4))
+
 ## [0.5.0](https://github.com/equinor/terraform-azuread-app/compare/v0.4.2...v0.5.0) (2024-11-01)
 
 
