@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.0](https://github.com/equinor/terraform-azuread-app/compare/v0.6.0...v0.7.0) (2024-11-05)
+
+
+### Features
+
+* enable mapped claims ([#26](https://github.com/equinor/terraform-azuread-app/issues/26)) ([d825070](https://github.com/equinor/terraform-azuread-app/commit/d825070ac28d2cb69eed46ecd631acff7cb926b9))
+
 ## [0.6.0](https://github.com/equinor/terraform-azuread-app/compare/v0.5.0...v0.6.0) (2024-11-05)
 
 
