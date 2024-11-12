@@ -150,13 +150,11 @@ resource "random_uuid" "app_role" {
 }
 
 resource "azuread_application_identifier_uri" "this" {
-  for_each = var.identifier_uris
+  count = var.identifier_uri_enabled ? 1 : 0
 
   application_id = azuread_application.this.id
-  identifier_uri = templatestring(each.value, {
-    app_id    = azuread_application.this.client_id
-    tenant_id = data.azuread_client_config.current.tenant_id
-  })
+  identifier_uri = "api://${azuread_application.this.client_id}"
+  # Ref: https://learn.microsoft.com/en-us/entra/identity-platform/reference-app-manifest#identifieruris-attribute
 }
 
 resource "azuread_service_principal" "this" {

@@ -33,14 +33,11 @@ variable "group_membership_claims" {
   default     = ["None"]
 }
 
-variable "identifier_uris" {
-  description = "A map of user-defined URIs that uniquely identify this application within its Microsoft Entra ID tenant, or within a verified custom domain if this application is multi-tenant. Values may be a string template. Available variables for the string template are \"app_id\" and \"tenant_id\". For example \"api://$${app_id}\"."
-  type        = map(string)
-  default     = {}
-  # References:
-  # - String templates: https://developer.hashicorp.com/terraform/language/expressions/strings#string-templates
-  # - templatestring function: https://developer.hashicorp.com/terraform/language/functions/templatestring
-  # - Entra Application identifier URIs: https://learn.microsoft.com/en-us/entra/identity-platform/reference-app-manifest#identifieruris-attribute
+variable "identifier_uri_enabled" {
+  description = "Should an identifier URI be added to this application? The identifier URI will uniquely identity this application within its Microsoft Entra ID tenant, or within a verified comain if this application is multi-tenant."
+  type        = bool
+  default     = false
+  nullable    = false
 }
 
 variable "api_known_client_applications" {
