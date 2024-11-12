@@ -34,9 +34,13 @@ variable "group_membership_claims" {
 }
 
 variable "identifier_uris" {
-  description = "A map of user-defined URIs that uniquely identify this application within its Microsoft Entra ID tenant, or within a verified custom domain if this application is multi-tenant."
+  description = "A map of user-defined URIs that uniquely identify this application within its Microsoft Entra ID tenant, or within a verified custom domain if this application is multi-tenant. Values may be a string template. Available variables for the string template are \"app_id\" and \"tenant_id\". For example \"api://$${app_id}\"."
   type        = map(string)
   default     = {}
+  # References:
+  # - String templates: https://developer.hashicorp.com/terraform/language/expressions/strings#string-templates
+  # - templatestring function: https://developer.hashicorp.com/terraform/language/functions/templatestring
+  # - Entra Application identifier URIs: https://learn.microsoft.com/en-us/entra/identity-platform/reference-app-manifest#identifieruris-attribute
 }
 
 variable "api_known_client_applications" {
@@ -248,10 +252,4 @@ variable "api_oauth2_permission_scopes" {
     condition     = alltrue([for scope in var.api_oauth2_permission_scopes : scope.type == "User" || scope.type == "Admin"])
     error_message = "Type must be either \"User\" or \"Admin\"."
   }
-}
-
-variable "application_identifier_uri" {
-  description = "Manages a single Identifier URI for an application registration."
-  type        = bool
-  default     = false
 }
