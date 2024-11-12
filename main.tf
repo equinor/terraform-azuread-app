@@ -158,6 +158,7 @@ resource "random_uuid" "app_role" {
 }
 
 resource "azuread_application_identifier_uri" "this" {
+  count = var.application_identifier_uri ? 1 : 0
   for_each = merge(local.identifier_uris, var.identifier_uris)
 
   application_id = azuread_application.this.id

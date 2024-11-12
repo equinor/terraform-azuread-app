@@ -249,3 +249,9 @@ variable "api_oauth2_permission_scopes" {
     error_message = "Type must be either \"User\" or \"Admin\"."
   }
 }
+
+variable "application_identifier_uri" {
+  description = "Manages a single Identifier URI for an application registration."
+  type        = bool
+  default     = false
+}
