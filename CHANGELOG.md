@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.0](https://github.com/equinor/terraform-azuread-app/compare/v0.7.0...v0.8.0) (2024-11-13)
+
+
+### Features
+
+* optional identifier URI configuration  ([#28](https://github.com/equinor/terraform-azuread-app/issues/28)) ([0f11461](https://github.com/equinor/terraform-azuread-app/commit/0f11461b53e671b7c07d03ddeb8051cc9226b68d))
+
 ## [0.7.0](https://github.com/equinor/terraform-azuread-app/compare/v0.6.0...v0.7.0) (2024-11-05)
 
 
