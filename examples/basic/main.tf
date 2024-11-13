@@ -8,7 +8,7 @@ data "azuread_client_config" "current" {}
 
 module "app" {
   source  = "equinor/app/azuread"
-  version = "0.7.0"
+  version = "0.8.0"
 
   application_display_name     = "app-${random_id.example.hex}"
   service_management_reference = "12345"

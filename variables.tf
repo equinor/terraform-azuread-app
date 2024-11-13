@@ -33,10 +33,11 @@ variable "group_membership_claims" {
   default     = ["None"]
 }
 
-variable "identifier_uris" {
-  description = "A map of user-defined URIs that uniquely identify this application within its Microsoft Entra ID tenant, or within a verified custom domain if this application is multi-tenant."
-  type        = map(string)
-  default     = {}
+variable "create_identifier_uri" {
+  description = "Should an identifier URI be created and added to this application? The identifier URI will uniquely identity this application within its Microsoft Entra ID tenant, or within a verified comain if this application is multi-tenant."
+  type        = bool
+  default     = false
+  nullable    = false
 }
 
 variable "api_known_client_applications" {
