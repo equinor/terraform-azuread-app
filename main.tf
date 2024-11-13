@@ -150,7 +150,7 @@ resource "random_uuid" "app_role" {
 }
 
 resource "azuread_application_identifier_uri" "this" {
-  count = var.identifier_uri_enabled ? 1 : 0
+  count = var.create_identifier_uri ? 1 : 0
 
   application_id = azuread_application.this.id
   identifier_uri = "api://${azuread_application.this.client_id}"

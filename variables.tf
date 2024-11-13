@@ -33,8 +33,8 @@ variable "group_membership_claims" {
   default     = ["None"]
 }
 
-variable "identifier_uri_enabled" {
-  description = "Should an identifier URI be added to this application? The identifier URI will uniquely identity this application within its Microsoft Entra ID tenant, or within a verified comain if this application is multi-tenant."
+variable "create_identifier_uri" {
+  description = "Should an identifier URI be created and added to this application? The identifier URI will uniquely identity this application within its Microsoft Entra ID tenant, or within a verified comain if this application is multi-tenant."
   type        = bool
   default     = false
   nullable    = false
