@@ -9,7 +9,7 @@ variable "app_roles" {
     allowed_member_types = list(string)
     description          = string
     display_name         = string
-    id                   = optional(string) 
+    id                   = optional(string)
     enabled              = bool
     value                = string
   }))
@@ -156,11 +156,6 @@ variable "web_redirect_uris" {
   description = "A list of URLs where OAuth 2.0 autorization codes and access tokens are sent."
   type        = list(string)
   default     = []
-
-  validation {
-    condition     = alltrue([for uri in var.web_redirect_uris : can(regex("^https://|^ms-appx-web://|^http://localhost", uri))])
-    error_message = "All URIs must be valid HTTPS URLs excluding localhost."
-  }
 }
 
 variable "single_page_application_redirect_uris" {
@@ -239,7 +234,7 @@ variable "api_oauth2_permission_scopes" {
     admin_consent_description  = string
     admin_consent_display_name = string
     enabled                    = bool
-    id                         = optional(string) 
+    id                         = optional(string)
     type                       = string
     user_consent_description   = optional(string)
     user_consent_display_name  = optional(string)
