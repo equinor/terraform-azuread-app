@@ -178,11 +178,6 @@ variable "public_client_redirect_uris" {
   description = "A list of URLs where public client (e.g. mobile) OAuth 2.0 autorization codes and access tokens are sent."
   type        = list(string)
   default     = []
-
-  validation {
-    condition     = alltrue([for uri in var.public_client_redirect_uris : can(regex("^https://|^ms-appx-web://", uri))])
-    error_message = "All URIs must be valid HTTPS or ms-appx-web URLs."
-  }
 }
 
 variable "web_implicit_grant_access_token_issuance_enabled" {
