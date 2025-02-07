@@ -28,7 +28,7 @@ resource "azuread_application" "this" {
       description          = app_role.value.description
       display_name         = app_role.value.display_name
       enabled              = app_role.value.enabled
-      id                   = random_uuid.app_role[app_role.key].result
+      id                   = coalesce(app_role.value.id, random_uuid.app_role[app_role.key].result)
       value                = app_role.value.value
     }
   }
@@ -78,7 +78,7 @@ resource "azuread_application" "this" {
         admin_consent_display_name = oauth2_permission_scope.value.admin_consent_display_name
 
         enabled = oauth2_permission_scope.value.enabled
-        id      = random_uuid.oauth2_permission_scope[oauth2_permission_scope.key].result
+        id      = coalesce(oauth2_permission_scope.value.id, random_uuid.oauth2_permission_scope[oauth2_permission_scope.key].result)
         type    = oauth2_permission_scope.value.type
 
         user_consent_description  = oauth2_permission_scope.value.user_consent_description
