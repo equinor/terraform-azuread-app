@@ -28,7 +28,7 @@ resource "azuread_application" "this" {
       description          = app_role.value.description
       display_name         = app_role.value.display_name
       enabled              = app_role.value.enabled
-      id                   = app_role.value.id
+      id                   = coalesce(app_role.value.id, random_uuid.app_role[app_role.key].result)
       value                = app_role.value.value
     }
   }
@@ -78,7 +78,7 @@ resource "azuread_application" "this" {
         admin_consent_display_name = oauth2_permission_scope.value.admin_consent_display_name
 
         enabled = oauth2_permission_scope.value.enabled
-        id      = oauth2_permission_scope.value.id
+        id      = coalesce(oauth2_permission_scope.value.id, random_uuid.oauth2_permission_scope[oauth2_permission_scope.key].result)
         type    = oauth2_permission_scope.value.type
 
         user_consent_description  = oauth2_permission_scope.value.user_consent_description
@@ -137,6 +137,16 @@ resource "azuread_application" "this" {
       error_message = "Current client (object ID: \"${data.azuread_client_config.current.object_id}\") must be set as owner."
     }
   }
+}
+
+resource "random_uuid" "oauth2_permission_scope" {
+  // Generate random UUIDs for each permission scope
+  for_each = var.api_oauth2_permission_scopes
+}
+
+resource "random_uuid" "app_role" {
+  // Generate random UUIDs for each app role
+  for_each = var.app_roles
 }
 
 resource "azuread_application_identifier_uri" "this" {
