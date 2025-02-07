@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.9.0](https://github.com/equinor/terraform-azuread-app/compare/v0.8.0...v0.9.0) (2025-02-07)
+
+
+### Features
+
+* override app role and OAuth2 permission scope IDs ([#30](https://github.com/equinor/terraform-azuread-app/issues/30)) ([fa2f808](https://github.com/equinor/terraform-azuread-app/commit/fa2f808e8cb1688130380406b167b44ccbfb8c8d))
+
+
+### Bug Fixes
+
+* remove validation for public client redirect URIs ([#32](https://github.com/equinor/terraform-azuread-app/issues/32)) ([a3a83db](https://github.com/equinor/terraform-azuread-app/commit/a3a83db934ad8081f7e98f067bc2d2500bf2cc2a))
+
 ## [0.8.0](https://github.com/equinor/terraform-azuread-app/compare/v0.7.0...v0.8.0) (2024-11-13)
 
 
