@@ -9,7 +9,7 @@ variable "app_roles" {
     allowed_member_types = list(string)
     description          = string
     display_name         = string
-    id                   = string
+    id                   = optional(string) 
     enabled              = bool
     value                = string
   }))
@@ -239,7 +239,7 @@ variable "api_oauth2_permission_scopes" {
     admin_consent_description  = string
     admin_consent_display_name = string
     enabled                    = bool
-    id                         = string
+    id                         = optional(string) 
     type                       = string
     user_consent_description   = optional(string)
     user_consent_display_name  = optional(string)
