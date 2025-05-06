@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.1](https://github.com/equinor/terraform-azuread-app/compare/v0.9.0...v0.9.1) (2025-05-06)
+
+
+### Documentation
+
+* update README ([d76309a](https://github.com/equinor/terraform-azuread-app/commit/d76309ac4d0856d5e56e1b3282b0dd2635e90ea7))
+
 ## [0.9.0](https://github.com/equinor/terraform-azuread-app/compare/v0.8.0...v0.9.0) (2025-02-07)
 
 
