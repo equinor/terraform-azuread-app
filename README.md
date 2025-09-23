@@ -1,5 +1,12 @@
 # Terraform module for Microsoft Entra ID Application
 
+[![GitHub Release](https://img.shields.io/github/v/release/equinor/terraform-azuread-app)](https://github.com/equinor/terraform-azuread-app/releases/latest)
+[![Terraform Module Downloads](https://img.shields.io/terraform/module/dt/equinor/app/azuread)](https://registry.terraform.io/modules/equinor/app/azuread/latest)
+[![GitHub contributors](https://img.shields.io/github/contributors/equinor/terraform-azuread-app)](https://github.com/equinor/terraform-azuread-app/graphs/contributors)
+[![GitHub Issues](https://img.shields.io/github/issues/equinor/terraform-azuread-app)](https://github.com/equinor/terraform-azuread-app/issues)
+[![GitHub Pull requests](https://img.shields.io/github/issues-pr/equinor/terraform-azuread-app)](https://github.com/equinor/terraform-azuread-app/pulls)
+[![GitHub License](https://img.shields.io/github/license/equinor/terraform-azuread-app)](https://github.com/equinor/terraform-azuread-app/blob/main/LICENSE)
+
 Terraform module which creates Microsoft Entra ID (previously Azure Active Directory) Application resources.
 
 ## Features
