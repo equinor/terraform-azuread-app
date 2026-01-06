@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.2](https://github.com/equinor/terraform-azuread-app/compare/v0.9.1...v0.9.2) (2026-01-06)
+
+
+### Bug Fixes
+
+* incorrect required AzureAD provider version ([#34](https://github.com/equinor/terraform-azuread-app/issues/34)) ([b0314ce](https://github.com/equinor/terraform-azuread-app/commit/b0314ced45eaa90dfc43b98441b1592a83e6e09a))
+
 ## [0.9.1](https://github.com/equinor/terraform-azuread-app/compare/v0.9.0...v0.9.1) (2025-05-06)
 
 
