@@ -29,7 +29,7 @@ data "azuread_user" "bar" {
 
 module "app" {
   source  = "equinor/app/azuread"
-  version = "~> 0.9"
+  version = "~> 0.10"
 
   application_display_name     = "example-app"
   service_management_reference = "12345"

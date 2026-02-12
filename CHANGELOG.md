@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.10.0](https://github.com/equinor/terraform-azuread-app/compare/v0.9.2...v0.10.0) (2026-02-12)
+
+
+### Features
+
+* add variable `app_role_assignment_required` ([#36](https://github.com/equinor/terraform-azuread-app/issues/36)) ([856430b](https://github.com/equinor/terraform-azuread-app/commit/856430b4a7bc4f84e5986ca77b944bb13d4dd701))
+
 ## [0.9.2](https://github.com/equinor/terraform-azuread-app/compare/v0.9.1...v0.9.2) (2026-01-06)
 
 
