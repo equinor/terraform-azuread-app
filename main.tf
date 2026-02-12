@@ -158,9 +158,8 @@ resource "azuread_application_identifier_uri" "this" {
 }
 
 resource "azuread_service_principal" "this" {
-  client_id = azuread_application.this.client_id
-  owners    = var.owners
-  login_url = var.login_url
-
+  client_id                    = azuread_application.this.client_id
+  owners                       = var.owners
+  login_url                    = var.login_url
   app_role_assignment_required = var.app_role_assignment_required
 }
