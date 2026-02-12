@@ -247,3 +247,9 @@ variable "api_oauth2_permission_scopes" {
     error_message = "Type must be either \"User\" or \"Admin\"."
   }
 }
+
+variable "app_role_assignment_required" {
+  description = "Whether this service principal requires an app role assignment to a user or group before Azure AD will issue a user or access token to the application."
+  type        = bool
+  default     = false
+}
