@@ -7,5 +7,11 @@ terraform {
       # Version 2.44.0 required to use the "azuread_application_identifier_uri" resource
       version = ">= 2.44.0"
     }
+
+    random = {
+      source = "hashicorp/random"
+      # Version 2.0.0 required to use the "random_uuid" resource
+      version = ">= 2.0.0"
+    }
   }
 }
