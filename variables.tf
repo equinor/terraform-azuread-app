@@ -221,7 +221,7 @@ variable "required_resource_accesses" {
 }
 
 variable "api_oauth2_permission_scopes" {
-  description = "A list of required OAuth 2.0 permission scopes to configure for this application."
+  description = "A list of OAuth 2.0 scopes to define for the API exposed by this application. Value is the scope name (e.g., \"Files.Read\"). Type determines who can consent to this scope (i.e., \"User\" or \"Admin\"). Admin consent display name is what the scope will be called in the consent screen when admins consent to this scope (e.g., \"Read user files\"). Admin consent description is a detailed description of the scope that is displayed when tenant admins expand a scope on the consent screen (e.g., \"Allows the app to read the signed-in user's files\"). User consent display name is what the scope will be called in the consent screen when users consent to this scope (e.g., \"Read your files\"). User consent description is a detailed description of the scope that is displayed when users expand a scope on the consent screen."
   # Since the primary use of this variable is the creation of a dynamic nested
   # block "azuread_application.this.api[0].oauth2_permission_scope", we'd
   # usually set the type to 'list(object)'. However, this variable will also be
@@ -231,14 +231,14 @@ variable "api_oauth2_permission_scopes" {
   # could lead to a change of indexes, effectively changing Terraform resource
   # identifiers and requiring those resources to be re-created.
   type = map(object({
-    admin_consent_description  = string
+    value                      = string
+    type                       = optional(string, "Admin")
     admin_consent_display_name = string
-    enabled                    = bool
-    id                         = optional(string)
-    type                       = string
-    user_consent_description   = optional(string)
+    admin_consent_description  = string
     user_consent_display_name  = optional(string)
-    value                      = optional(string)
+    user_consent_description   = optional(string)
+    enabled                    = optional(bool, true)
+    id                         = optional(string)
   }))
   default = {}
 
