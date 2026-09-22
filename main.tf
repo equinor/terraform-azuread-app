@@ -162,4 +162,12 @@ resource "azuread_service_principal" "this" {
   owners                       = var.owners
   login_url                    = var.login_url
   app_role_assignment_required = var.app_role_assignment_required
+
+  feature_tags {
+    # Explicitly set to Terraform provider defaults to override Azure Portal defaults for imported service principals.
+    custom_single_sign_on = false
+    enterprise            = false
+    gallery               = false
+    hide                  = false
+  }
 }
