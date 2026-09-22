@@ -4,14 +4,22 @@ variable "application_display_name" {
 }
 
 variable "app_roles" {
-  description = "A map of application roles to configure for this application."
+  description = "A map of app roles to define for this application. Display name is the app role name that appears in the assignment and consent experiences (e.g., \"Writers\"). Allowed member types are \"User\", \"Application\" or both. Value is the app role name that will be included in the \"roles\" claim of a token identifying a user or app which has been granted this app role (e.g., \"Task.Write\"). Description is the app role help text that appears in the app assignment and consent experiences (e.g., \"Writers have the ability to create tasks\")."
+  # Since the primary use of this variable is the creation of a dynamic nested
+  # block "azuread_application.this.app_role", we'd usually set the type to
+  # 'list(object)'. However, this variable will also be used to create a
+  # repeatable resource 'random_uuid.app_role' using the 'for_each' meta-
+  # argument, and with the 'for_each' meta-argument it's safer to use a map as
+  # an input. Using a list, changes to its contents could lead to a change of
+  # indexes, effectively changing Terraform resource identifiers and requiring
+  # those resources to be re-created.
   type = map(object({
-    allowed_member_types = list(string)
-    description          = string
     display_name         = string
-    id                   = optional(string)
-    enabled              = bool
+    allowed_member_types = list(string)
     value                = string
+    description          = string
+    enabled              = optional(bool, true)
+    id                   = optional(string)
   }))
   default = {}
 }
@@ -221,7 +229,7 @@ variable "required_resource_accesses" {
 }
 
 variable "api_oauth2_permission_scopes" {
-  description = "A list of OAuth 2.0 permission scopes to define for the API exposed by this application. Value is the scope name (e.g., \"Files.Read\"). Type determines who can consent to this scope (i.e., \"User\" or \"Admin\"). Admin consent display name is what the scope will be called in the consent screen when admins consent to this scope (e.g., \"Read user files\"). Admin consent description is a detailed description of the scope that is displayed when tenant admins expand a scope on the consent screen (e.g., \"Allows the app to read the signed-in user's files\"). User consent display name is what the scope will be called in the consent screen when users consent to this scope (e.g., \"Read your files\"). User consent description is a detailed description of the scope that is displayed when users expand a scope on the consent screen."
+  description = "A map of OAuth 2.0 permission scopes to define for the API exposed by this application. Value is the scope name (e.g., \"Files.Read\"). Type determines who can consent to this scope (i.e., \"User\" or \"Admin\"). Admin consent display name is what the scope will be called in the consent screen when admins consent to this scope (e.g., \"Read user files\"). Admin consent description is a detailed description of the scope that is displayed when tenant admins expand a scope on the consent screen (e.g., \"Allows the app to read the signed-in user's files\"). User consent display name is what the scope will be called in the consent screen when users consent to this scope (e.g., \"Read your files\"). User consent description is a detailed description of the scope that is displayed when users expand a scope on the consent screen."
   # Since the primary use of this variable is the creation of a dynamic nested
   # block "azuread_application.this.api[0].oauth2_permission_scope", we'd
   # usually set the type to 'list(object)'. However, this variable will also be
