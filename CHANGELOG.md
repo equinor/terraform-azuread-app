@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.10.1](https://github.com/equinor/terraform-azuread-app/compare/v0.10.0...v0.10.1) (2026-09-22)
+
+
+### Bug Fixes
+
+* explicitly override Azure Portal defaults for imported service principals ([#40](https://github.com/equinor/terraform-azuread-app/issues/40)) ([fe1f5c6](https://github.com/equinor/terraform-azuread-app/commit/fe1f5c6da7481f44995e2dbe7e3a08fb81d3761d))
+
 ## [0.10.0](https://github.com/equinor/terraform-azuread-app/compare/v0.9.2...v0.10.0) (2026-02-12)
 
 
