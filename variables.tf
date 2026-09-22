@@ -4,7 +4,7 @@ variable "application_display_name" {
 }
 
 variable "app_roles" {
-  description = "A map of app roles to define for this application. Display name is the app role name that appears in the assignment and consent experiences. (e.g., \"Writers\"). Allowed member types are \"User\", \"Application\" or both. Value is the app role name that will be included in the \"roles\" claim of a token identifying a user or app which has been granted this app role (e.g., \"Task.Write\"). Description is the app role help text that appears in the app assignment and consent experiences (e.g., \"Writers have the ability to create tasks\")."
+  description = "A map of app roles to define for this application. Display name is the app role name that appears in the assignment and consent experiences (e.g., \"Writers\"). Allowed member types are \"User\", \"Application\" or both. Value is the app role name that will be included in the \"roles\" claim of a token identifying a user or app which has been granted this app role (e.g., \"Task.Write\"). Description is the app role help text that appears in the app assignment and consent experiences (e.g., \"Writers have the ability to create tasks\")."
   # Since the primary use of this variable is the creation of a dynamic nested
   # block "azuread_application.this.app_role", we'd usually set the type to
   # 'list(object)'. However, this variable will also be used to create a
